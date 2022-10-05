@@ -1,0 +1,7 @@
+.buttonCustom {
+    background-color: $mainColor;
+    border: none;
+    &:hover{
+        background-color: $mainColorHover;
+    }
+}
