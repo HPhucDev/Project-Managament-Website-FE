@@ -26,7 +26,7 @@ export const Login = (props) => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
-          <p className="form-title">Welcome back</p>
+          <p className="form-title">Welcome back!</p>
           <p>Đăng nhập</p>
           <Form.Item
             name="username"
