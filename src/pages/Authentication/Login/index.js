@@ -27,7 +27,7 @@ export const Login = (props) => {
           onFinishFailed={onFinishFailed}
         >
           <p className="form-title">Welcome back</p>
-          <p>Login to the Dashboard</p>
+          <p>Đăng nhập</p>
           <Form.Item
             name="username"
             rules={[{ required: true, message: "Please input your username!" }]}
