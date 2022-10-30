@@ -1,5 +1,5 @@
-import React from 'react';
-import { Row, Col } from 'antd';
+import React, { Suspense } from 'react';
+import { Row, Col, Spin } from 'antd';
 import { Aside, Content } from './overview/style';
 import Heading from '../../../components/heading/heading';
 
@@ -31,7 +31,15 @@ const AuthLayout = WraperContent => {
         </Col>
 
         <Col xxl={16} xl={15} lg={12} md={16} xs={24}>
-          <WraperContent />
+          <Suspense
+            fallback={
+              <div className="spin">
+                <Spin />
+              </div>
+            }
+          >
+            <WraperContent />
+          </Suspense>
         </Col>
       </Row>
     );
