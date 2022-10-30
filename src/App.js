@@ -38,28 +38,20 @@ const ProviderConfig = () => {
   return (
     <ConfigProvider direction={rtl ? 'rtl' : 'ltr'}>
       <ThemeProvider theme={{ ...theme, rtl, topMenu, darkMode }}>
-        <Suspense
-          fallback={
-            <div className="spin">
-              <Spin />
-            </div>
-          }
-        >
-          <Router>
-            <Switch>
-              {authRoutes.map((authRouterItem, index) => (
-                <Route key={index} path={authRouterItem.path} component={AuthLayout(authRouterItem.component)} />
-              ))}
-              {userRoutes.map((userRouterItem, index) => (
-                <ProtectedRoute
-                  key={index}
-                  path={userRouterItem.path}
-                  component={withAdminLayout(userRouterItem.component)}
-                />
-              ))}
-            </Switch>
-          </Router>
-        </Suspense>
+        <Router>
+          <Switch>
+            {authRoutes.map((authRouterItem, index) => (
+              <Route key={index} path={authRouterItem.path} component={AuthLayout(authRouterItem.component)} />
+            ))}
+            {userRoutes.map((userRouterItem, index) => (
+              <ProtectedRoute
+                key={index}
+                path={userRouterItem.path}
+                component={withAdminLayout(userRouterItem.component)}
+              />
+            ))}
+          </Switch>
+        </Router>
       </ThemeProvider>
     </ConfigProvider>
   );

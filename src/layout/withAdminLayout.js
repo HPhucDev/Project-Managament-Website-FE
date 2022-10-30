@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-shadow */
-import React, { Component } from 'react';
-import { Layout, Button, Row, Col } from 'antd';
+import React, { Component, Suspense } from 'react';
+import { Layout, Button, Row, Col, Spin } from 'antd';
 import FeatherIcon from 'feather-icons-react';
 import { NavLink, Link } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -307,7 +307,15 @@ const ThemeLayout = WrappedComponent => {
               ) : null}
               <Layout className="atbd-main-layout">
                 <Content>
-                  <WrappedComponent {...this.props} />
+                  <Suspense
+                    fallback={
+                      <div className="spin">
+                        <Spin />
+                      </div>
+                    }
+                  >
+                    <WrappedComponent {...this.props} />
+                  </Suspense>
                   <Footer className="admin-footer" style={footerStyle}>
                     <Row>
                       <Col md={12} xs={24}>
