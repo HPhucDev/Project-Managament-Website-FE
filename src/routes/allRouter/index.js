@@ -44,6 +44,7 @@ export const authRoutes = [
     component: SignUp,
     title: "SignUp",
   },
+  
   {
     path: pathName.ForgotPassword,
     component: ForgotPass,
