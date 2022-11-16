@@ -1,4 +1,4 @@
-import Styled from 'styled-components';
+import Styled from "styled-components";
 
 const InfoWraper = Styled.div`
     display: flex;
@@ -7,17 +7,17 @@ const InfoWraper = Styled.div`
     padding: 16px 0;        
     .head-example{
         text-decoration: none;
-        color: ${({ theme }) => theme['text-color-secondary']};
+        color: ${({ theme }) => theme["text-color-secondary"]};
         box-shadow: none;
         padding: 0px 8px;
-        ${({ darkMode }) => (darkMode ? `color: #A8AAB3;` : '')};
+        ${({ darkMode }) => (darkMode ? `color: #A8AAB3;` : "")};
     }
     .message .ant-badge-dot{
         background: green
     }
     .ant-badge{
         .ant-badge-dot{
-            ${({ theme }) => (theme.rtl ? 'left' : 'right')}: 50% !important;
+            ${({ theme }) => (theme.rtl ? "left" : "right")}: 50% !important;
         }
     }
     .flag-select{
@@ -77,13 +77,13 @@ const InfoWraper = Styled.div`
             padding: 12px 0;
             background: #fff;
             border: 0 none;
-            box-shadow: 0 5px 30px ${({ theme }) => theme['gray-solid']}15;
+            box-shadow: 0 5px 30px ${({ theme }) => theme["gray-solid"]}15;
             li{
                 &:first-child{
                     margin-top: 12px;
                 }
                 &:hover{
-                    background: ${({ theme }) => theme['primary-color']}05;
+                    background: ${({ theme }) => theme["primary-color"]}05;
                 }
                 span{
                     display: flex !important;
@@ -94,7 +94,7 @@ const InfoWraper = Styled.div`
                     }
                     span{
                         font-weight: 500;
-                        color: ${({ theme }) => theme['gray-color']};
+                        color: ${({ theme }) => theme["gray-color"]};
                         padding: 0;
                         margin-left: 10px;
                     }
@@ -119,7 +119,7 @@ const SettingDropdwon = Styled.div`
                 top: 0;
                 width: 100%;
                 height: 100%;
-                box-shadow: 0 5px 20px ${({ theme }) => theme['gray-solid']}15;
+                box-shadow: 0 5px 20px ${({ theme }) => theme["gray-solid"]}15;
                 z-index: 1;
                 content: '';
                 opacity: 0;
@@ -138,14 +138,16 @@ const SettingDropdwon = Styled.div`
             }
             p{
                 margin-bottom: 0;
-                color: ${({ theme }) => theme['gray-solid']};
+                color: ${({ theme }) => theme["gray-solid"]};
             }
             img{
-                ${({ theme }) => (theme.rtl ? 'margin-left' : 'margin-right')}: 16px;
-                transform: ${({ theme }) => (theme.rtl ? 'rotatey(180deg)' : 'rotatey(0deg)')};
+                ${({ theme }) =>
+                  theme.rtl ? "margin-left" : "margin-right"}: 16px;
+                transform: ${({ theme }) =>
+                  theme.rtl ? "rotatey(180deg)" : "rotatey(0deg)"};
             }
             figcaption{
-                text-align: ${({ theme }) => (!theme.rtl ? 'left' : 'right')}
+                text-align: ${({ theme }) => (!theme.rtl ? "left" : "right")}
             }
         }
     }
@@ -154,7 +156,7 @@ const SettingDropdwon = Styled.div`
 const NestedDropdwon = Styled.div`
     .support-dropdwon{
         padding: 10px 15px;
-        text-align: ${({ theme }) => (!theme.rtl ? 'left' : 'right')};
+        text-align: ${({ theme }) => (!theme.rtl ? "left" : "right")};
         ul{
             &:not(:last-child){
                 margin-bottom: 16px;
@@ -162,16 +164,16 @@ const NestedDropdwon = Styled.div`
             h1{
                 font-size: 14px;
                 font-weight: 400;
-                color: ${({ theme }) => theme['light-color']};
+                color: ${({ theme }) => theme["light-color"]};
             }
             li{
                 a{
                     font-weight: 500;
                     padding: 4px 16px;
-                    color: ${({ theme }) => theme['dark-color']};
+                    color: ${({ theme }) => theme["dark-color"]};
                     &:hover{
                         background: #fff;
-                        color: ${({ theme }) => theme['primary-color']};
+                        color: ${({ theme }) => theme["primary-color"]};
                     }
                 }
             }
@@ -179,7 +181,7 @@ const NestedDropdwon = Styled.div`
     }
 `;
 
-const UserDropDwon = Styled.div`
+const UserDropDown = Styled.div`
     .user-dropdwon{
         max-width: 280px;
         .user-dropdwon__info{
@@ -188,20 +190,21 @@ const UserDropDwon = Styled.div`
             padding: 20px 25px;
             border-radius: 8px;
             margin-bottom: 12px;
-            background: ${({ theme }) => theme['bg-color-normal']};
+            background: ${({ theme }) => theme["bg-color-normal"]};
             img{
-                ${({ theme }) => (theme.rtl ? 'margin-left' : 'margin-right')}: 15px;
+                ${({ theme }) =>
+                  theme.rtl ? "margin-left" : "margin-right"}: 15px;
             }
             figcaption{
                 h1{
                     font-size: 14px;
                     margin-bottom: 2px;
-                    color:  ${({ theme }) => theme['dark-color']};
+                    color:  ${({ theme }) => theme["dark-color"]};
                 }
                 p{
                     margin-bottom: 0px;
                     font-size: 13px;
-                    color: ${({ theme }) => theme['gray-solid']};
+                    color: ${({ theme }) => theme["gray-solid"]};
                 }
             }
         }
@@ -215,16 +218,19 @@ const UserDropDwon = Styled.div`
                 padding: 10px 12px;
                 font-size: 14px;
                 transition: .3s;
-                color: ${({ theme }) => theme['light-color']};
+                color: ${({ theme }) => theme["light-color"]};
                 &:hover{
-                    background: ${({ theme }) => theme['primary-color']}05;
-                    color: ${({ theme }) => theme['primary-color']};
-                    ${({ theme }) => (theme.rtl ? 'padding-right' : 'padding-left')}: 22px;
+                    background: ${({ theme }) => theme["primary-color"]}05;
+                    color: ${({ theme }) => theme["primary-color"]};
+                    ${({ theme }) =>
+                      theme.rtl ? "padding-right" : "padding-left"}: 22px;
                 }
                 svg{
                     width: 16px;
-                    transform: ${({ theme }) => (theme.rtl ? 'rotateY(180deg)' : 'rotateY(0deg)')};
-                    ${({ theme }) => (theme.rtl ? 'margin-left' : 'margin-right')}: 14px;
+                    transform: ${({ theme }) =>
+                      theme.rtl ? "rotateY(180deg)" : "rotateY(0deg)"};
+                    ${({ theme }) =>
+                      theme.rtl ? "margin-left" : "margin-right"}: 14px;
                 }
             }
         }
@@ -243,12 +249,13 @@ const UserDropDwon = Styled.div`
             bottom: -15px;
             border-radius: 0 0 6px 6px;
             padding: 15px 0;
-            background: ${({ theme }) => theme['bg-color-light']};
-            color: ${({ theme }) => theme['light-light']};
+            background: ${({ theme }) => theme["bg-color-light"]};
+            color: ${({ theme }) => theme["light-light"]};
             svg{
                 width: 15px;
                 height: 15px;
-                ${({ theme }) => (theme.rtl ? 'margin-left' : 'margin-right')}: 8px;
+                ${({ theme }) =>
+                  theme.rtl ? "margin-left" : "margin-right"}: 8px;
             }
         }
     }
@@ -256,16 +263,16 @@ const UserDropDwon = Styled.div`
 
 const AtbdTopDropdwon = Styled.div`
     .atbd-top-dropdwon__title .title-text {        
-        ${({ theme }) => (!theme.rtl ? 'margin-right' : 'margin-left')}: 10px;
+        ${({ theme }) => (!theme.rtl ? "margin-right" : "margin-left")}: 10px;
     }
     .atbd-top-dropdwon__content figcaption .atbd-top-dropdwonText {
         min-width: 216px;
-        ${({ theme }) => (!theme.rtl ? 'margin-right' : 'margin-left')}: 15px;
+        ${({ theme }) => (!theme.rtl ? "margin-right" : "margin-left")}: 15px;
     }
     .atbd-top-dropdwon__content .notification-icon {
         width: 39.2px;
         height: 32px;
-        ${({ theme }) => (!theme.rtl ? 'margin-right' : 'margin-left')}: 15px;
+        ${({ theme }) => (!theme.rtl ? "margin-right" : "margin-left")}: 15px;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -291,7 +298,7 @@ const AtbdTopDropdwon = Styled.div`
     }  
 
     .atbd-top-dropdwon__content figcaption span {
-        ${({ theme }) => (theme.rtl ? 'padding-right' : 'padding-left')}: 0;
+        ${({ theme }) => (theme.rtl ? "padding-right" : "padding-left")}: 0;
     }
 
     .notification-text h1 {
@@ -304,21 +311,28 @@ const AtbdTopDropdwon = Styled.div`
     .notification-text h1 span {
         color: #5F63F2;
         font-weight: 500;
-        ${({ theme }) => (theme.rtl ? 'padding-right' : 'padding-left')}: 0;
+        ${({ theme }) => (theme.rtl ? "padding-right" : "padding-left")}: 0;
     }
 
     .notification-text p {
         font-size: 12px;
         color: #ADB4D2;
         margin-bottom: 0;
-        text-align: ${({ theme }) => (!theme.rtl ? 'left' : 'right')}
+        text-align: ${({ theme }) => (!theme.rtl ? "left" : "right")}
     }
 `;
 
 const NavAuth = Styled.span`
     i, svg, img {
-        ${({ theme }) => (theme.rtl ? 'margin-left' : 'margin-right')}: 8px;
+        ${({ theme }) => (theme.rtl ? "margin-left" : "margin-right")}: 8px;
     }
 `;
 
-export { InfoWraper, SettingDropdwon, NestedDropdwon, UserDropDwon, AtbdTopDropdwon, NavAuth };
+export {
+  InfoWraper,
+  SettingDropdwon,
+  NestedDropdwon,
+  UserDropDown,
+  AtbdTopDropdwon,
+  NavAuth,
+};

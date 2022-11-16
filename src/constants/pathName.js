@@ -1,19 +1,19 @@
 // Authentication
 
-export const ForgotPassword = '/forgotPassword';
+export const ForgotPassword = "/forgotPassword";
 
-export const Login = '/login';
+export const Login = "/login";
 
-export const Register = '/register';
+export const Register = "/register";
 
-export const PageNotFound = '/page-not-found';
+export const PageNotFound = "/page-not-found";
 
 // DashBoard
-export const Dashboard = '/dashboard';
+export const Notification = "/notification";
 
 // Student
-export const Student = '/student';
+export const Student = "/student";
 // Lecturer
-export const Lecturer = '/lecturer';
+export const Lecturer = "/lecturer";
 // Project
-export const Project = '/project';
+export const Project = "/project";

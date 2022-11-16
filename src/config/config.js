@@ -1,4 +1,4 @@
-import { theme, darkTheme } from './theme/themeVariables';
+import { theme, darkTheme } from "./theme/themeVariables";
 
 const config = {
   darkMode: false,

@@ -1,94 +1,82 @@
-import React, { useState } from 'react';
-import { Link, NavLink, useHistory } from 'react-router-dom';
-import { Form, Input, Button } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { NavLink, useHistory } from "react-router-dom";
+import { Form, Input, Button } from "antd";
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { FacebookOutlined, TwitterOutlined } from '@ant-design/icons';
-import { AuthWrapper } from './style';
-import { login } from '../../../../redux/authentication/actionCreator';
-import { Checkbox } from '../../../../components/checkbox/checkbox';
-import Heading from '../../../../components/heading/heading';
+import { AuthWrapper } from "./style";
+import { Checkbox } from "../../../../components/checkbox/checkbox";
+import Heading from "../../../../components/heading/heading";
 
 const SignIn = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
-  const isLoading = useSelector(state => state.auth.loading);
   const [form] = Form.useForm();
   const [state, setState] = useState({
     checked: null,
   });
 
   const handleSubmit = () => {
-    dispatch(login());
     localStorage.setItem(
-      'token-crm',
-      'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYmR6L1RENHdTQm1VL0JWbVNnYS9BPT0iLCJ1c2VybmFtZSI6Im9PYklCOHJQeFpUcGtMNm9WR3JqL3RmR2ExT3phbk5zSFhIUklXVUVXblZtV0x2R0Fza1drdW53WDJEWXpvdFQiLCJkZXZpY2VLZXkiOiJqMkt3ZVphQ2F6UUxNZ0F4ZUw4Q2J3PT0iLCJ3b3Jrc3BhY2UiOiJJNzZhMmp1Y1N0RTVVc0x3R3ozcVNBPT0iLCJpYXQiOjE2NjU4MDk5OTMsImp0aSI6Ijg5ODdmNTcyLTA3NGUtNDE2MS1hZmIwLTljMDQyMDYxOTRhMyIsImV4cCI6MTY2Nzk2OTk5M30.eeIzuNpu5TZSGFNYVg4o_PNc9vua_6NmjRIfSIXH7kebxgphI6R_V3sG7i8K6Xs9yAI806UNMM5_H29uWWlqzQ',
+      "token-crm",
+      "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxTGN0NXN3VGFYSS9iV3V0SFdHSkZ3PT0iLCJ1c2VybmFtZSI6InkxMVc1NEdyU3cxU2pVWjBRNG95b0lRV1Fhc09qdzVHdjBwaVRtQkZKNlk9IiwiZGV2aWNlS2V5IjoiajJLd2VaYUNhelFMTWdBeGVMOENidz09Iiwid29ya3NwYWNlIjoiSTc2YTJqdWNTdEU1VXNMd0d6M3FTQT09IiwiaWF0IjoxNjY4NjEwMTA3LCJqdGkiOiJjMzcwZWZlZS0yNzM0LTQwNTctOWU4MS01ZDU5ZWE4YzVmZWMiLCJleHAiOjE2NzA3NzAxMDd9.gxbBAQSF09SOGXkW-tmKAE3W-7kjIOUccPHGgaDOioAXYxu9J7IvkCRIkPkh9qQbpbv8cpRVszK4HACeigGeSw"
     );
     localStorage.setItem(
-      'refreshToken-crm',
-      'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYmR6L1RENHdTQm1VL0JWbVNnYS9BPT0iLCJ1c2VybmFtZSI6Im9PYklCOHJQeFpUcGtMNm9WR3JqL3RmR2ExT3phbk5zSFhIUklXVUVXblZtV0x2R0Fza1drdW53WDJEWXpvdFQiLCJkZXZpY2VLZXkiOiJqMkt3ZVphQ2F6UUxNZ0F4ZUw4Q2J3PT0iLCJ3b3Jrc3BhY2UiOiJJNzZhMmp1Y1N0RTVVc0x3R3ozcVNBPT0iLCJpYXQiOjE2NjU4MDk5OTMsImp0aSI6ImEwMzBjOWZhLWM1ODUtNGY4OC1iZTJlLTRjOWJiMTcwYWU5NCIsImV4cCI6MTY2ODQwMTk5M30.IRJVopywGYcnLCS_11xtAjTWx6rHli3hU_yGd5ZgZxuAX5B2IK-58oFXNCN3JijiVm7NbzZnyoAn_Vsdf0AMZQ',
+      "refreshToken-crm",
+      "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxTGN0NXN3VGFYSS9iV3V0SFdHSkZ3PT0iLCJ1c2VybmFtZSI6InkxMVc1NEdyU3cxU2pVWjBRNG95b0lRV1Fhc09qdzVHdjBwaVRtQkZKNlk9IiwiZGV2aWNlS2V5IjoiajJLd2VaYUNhelFMTWdBeGVMOENidz09Iiwid29ya3NwYWNlIjoiSTc2YTJqdWNTdEU1VXNMd0d6M3FTQT09IiwiaWF0IjoxNjY4NjEwMTA3LCJqdGkiOiI1MWZlMGM4ZC1iYTRkLTQ5ZmYtOGRlNy1kMGJmZDhhMzk5YjciLCJleHAiOjE2NzEyMDIxMDd9.zFFa-x6ods--GBlbJ0o5vyUZeYVeQiKjzCBvZuT3fRyLlYsCX1Qw46hW99uZ3vEMDC_6HiRYIePOUDO636eB6g"
     );
-    localStorage.setItem('expiry-remember-me-crm', 1668401992816);
-    history.push('/');
+    localStorage.setItem("expiry-remember-me-crm", 1668653305950);
+    history.push("/");
   };
 
-  const onChange = checked => {
+  const onChange = (checked) => {
     setState({ ...state, checked });
   };
 
   return (
     <AuthWrapper>
       <p className="auth-notice">
-        Don&rsquo;t have an account? <NavLink to="/register">Sign up now</NavLink>
+        Bạn đã có tài khoản? <NavLink to="/register">Đăng kí ngay</NavLink>
       </p>
       <div className="auth-contents">
-        <Form name="login" form={form} onFinish={handleSubmit} layout="vertical">
+        <Form
+          name="login"
+          form={form}
+          onFinish={handleSubmit}
+          layout="vertical"
+        >
           <Heading as="h3">
-            Sign in to <span className="color-secondary">Admin</span>
+            Đăng nhập vào <span className="color-secondary">Sky News</span>
           </Heading>
           <Form.Item
             name="username"
-            rules={[{ message: 'Please input your username or Email!', required: true }]}
-            initialValue="name@example.com"
-            label="Username or Email Address"
+            rules={[
+              {
+                message: "Vui lòng nhập tài khoản hoặc Email!",
+                required: true,
+              },
+            ]}
+            placeholder="name@example.com"
+            label="Tài khoản hoặc email của bạn"
           >
             <Input />
           </Form.Item>
-          <Form.Item name="password" initialValue="123456" label="Password">
-            <Input.Password placeholder="Password" />
+          <Form.Item name="password" placeholder="123456" label="Mật khẩu">
+            <Input.Password placeholder="Mật khẩu" />
           </Form.Item>
           <div className="auth-form-action">
-            <Checkbox onChange={onChange}>Keep me logged in</Checkbox>
+            <Checkbox onChange={onChange}>Ghi nhớ đăng nhập</Checkbox>
             <NavLink className="forgot-pass-link" to="/forgotPassword">
-              Forgot password?
+              Quên mật khẩu?
             </NavLink>
           </div>
           <Form.Item>
-            <Button className="btn-signin" htmlType="submit" type="primary" size="large">
-              {isLoading ? 'Loading...' : 'Sign In'}
+            <Button
+              className="btn-signin"
+              htmlType="submit"
+              type="primary"
+              size="large"
+            >
+              {"Đăng nhập"}
             </Button>
           </Form.Item>
-          <p className="form-divider">
-            <span>Or</span>
-          </p>
-          <ul className="social-login">
-            <li>
-              <Link className="google-signup" to="#">
-                <img src={require('../../../../static/img/google.png')} alt="" />
-                <span>Sign in with Google</span>
-              </Link>
-            </li>
-            <li>
-              <Link className="facebook-sign" to="#">
-                <FacebookOutlined />
-              </Link>
-            </li>
-            <li>
-              <Link className="twitter-sign" to="#">
-                <TwitterOutlined />
-              </Link>
-            </li>
-          </ul>
         </Form>
       </div>
     </AuthWrapper>
