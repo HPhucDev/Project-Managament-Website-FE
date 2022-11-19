@@ -46,80 +46,62 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
       overflowedIndicator={<FeatherIcon icon="more-vertical" />}
       openKeys={openKeys}
     >
+      <Menu.Item key="addUser" icon={!topMenu && <FeatherIcon icon="home" />}>
+        <NavLink onClick={toggleCollapsed} to={`${path}/users/add-user/info`}>
+          Trang chủ
+        </NavLink>
+      </Menu.Item>
       <SubMenu
-        key="guide"
-        icon={!topMenu && <FeatherIcon icon="help-circle" />}
-        title="Hướng dẫn"
+        key="subject"
+        icon={!topMenu && <FeatherIcon icon="target" />}
+        title="Đề tài"
       >
-        <Menu.Item key="notifications">
+        <Menu.Item key="subjectList" icon>
           <NavLink onClick={toggleCollapsed} to={`${myRouter.Project}`}>
-            Thông báo
+            Danh sách đề tài
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="tutorial">
+        <Menu.Item key="mySubject">
           <NavLink onClick={toggleCollapsed} to={`${myRouter.Project}/1`}>
-            Pro Tutorial
+            Đề tài của tôi
           </NavLink>
         </Menu.Item>
       </SubMenu>
-      <Menu.Item key="news" icon={!topMenu && <FeatherIcon icon="tv" />}>
-        <NavLink onClick={toggleCollapsed} to={`${myRouter.Project}`}>
-          Tin tức cập nhật
-        </NavLink>
-      </Menu.Item>
-      <Menu.Item key="reuPage" icon={!topMenu && <FeatherIcon icon="repeat" />}>
-        <NavLink onClick={toggleCollapsed} to={`${myRouter.Project}`}>
-          Reup Page
-        </NavLink>
-      </Menu.Item>
-      <Menu.Item
-        key="reupWorkpress"
-        icon={!topMenu && <FeatherIcon icon="refresh-cw" />}
-      >
-        <NavLink onClick={toggleCollapsed} to={`${myRouter.Project}`}>
-          Reup Workpress
-        </NavLink>
-      </Menu.Item>
-      <Menu.Item key="scan" icon={!topMenu && <FeatherIcon icon="file-text" />}>
-        <NavLink onClick={toggleCollapsed} to={`${myRouter.Project}`}>
-          Quét bài viết
-        </NavLink>
-      </Menu.Item>
+
       <SubMenu
-        key="friend"
+        key="teacher"
         icon={!topMenu && <FeatherIcon icon="users" />}
-        title="Bạn bè"
+        title="Giảng viên"
       >
-        <Menu.Item key="sentMessage">
+        <Menu.Item key="teachers">
           <NavLink onClick={toggleCollapsed} to={`${myRouter.Student}`}>
-            Gửi tin nhắn
+            Danh sách giảng viên
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="addUser">
+        <Menu.Item key="teacherGroup">
           <NavLink onClick={toggleCollapsed} to={`${path}/users/add-user/info`}>
-            Kết bạn
+            Hội đồng phản biện
+          </NavLink>
+        </Menu.Item>
+      </SubMenu>
+
+      <SubMenu
+        key="student"
+        icon={!topMenu && <FeatherIcon icon="users" />}
+        title="Sinh viên"
+      >
+        <Menu.Item key="students">
+          <NavLink onClick={toggleCollapsed} to={`${myRouter.Student}`}>
+            Danh sách sinh viên
           </NavLink>
         </Menu.Item>
       </SubMenu>
       <Menu.Item
-        icon={!topMenu && <FeatherIcon icon="phone" />}
-        key="phoneNumber"
+        key="help"
+        icon={!topMenu && <FeatherIcon icon="help-circle" />}
       >
-        <NavLink onClick={toggleCollapsed} to={`${path}/support`}>
-          Phone & UUID
-        </NavLink>
-      </Menu.Item>
-      <Menu.Item icon={!topMenu && <FeatherIcon icon="link" />} key="link">
-        <NavLink onClick={toggleCollapsed} to={`${path}/support`}>
-          Liên kết
-        </NavLink>
-      </Menu.Item>
-      <Menu.Item
-        icon={!topMenu && <FeatherIcon icon="settings" />}
-        key="settings"
-      >
-        <NavLink onClick={toggleCollapsed} to={`${path}/support`}>
-          Quản lí tài khoản
+        <NavLink onClick={toggleCollapsed} to={`${path}/users/add-user/info`}>
+          Trợ giúp
         </NavLink>
       </Menu.Item>
     </Menu>

@@ -222,10 +222,10 @@ const ThemeLayout = (WrappedComponent) => {
                     <img
                       src={
                         !darkMode
-                          ? require(`../static/img/Logo_white.png`)
-                          : require(`../static/img/Logo_white.png`)
+                          ? require(`../static/img/logo.png`)
+                          : require(`../static/img/logo.png`)
                       }
-                      style={{ width: "90%", height: "90%" }}
+                      style={{ width: "25%", height: "80%" }}
                       alt=""
                     />
                   </Link>
@@ -344,7 +344,7 @@ const ThemeLayout = (WrappedComponent) => {
                     <Row>
                       <Col md={12} xs={24}>
                         <span className="admin-footer__copyright">
-                          IDS Software © 2022 All Rights Reserved
+                          HCMUTE © 2022 All Rights Reserved
                         </span>
                       </Col>
                       <Col md={12} xs={24}>

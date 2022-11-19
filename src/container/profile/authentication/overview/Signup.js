@@ -21,13 +21,11 @@ const SignUp = () => {
   return (
     <AuthWrapper>
       <p className="auth-notice">
-        Bạn đã có tài khoản? <NavLink to={"/login"}>Đăng nhập ngay</NavLink>
+        Bạn đã có tài khoản? <NavLink to={"/login"}>Đăng nhập ngay nào</NavLink>
       </p>
       <div className="auth-contents">
         <Form name="register" onFinish={handleSubmit} layout="vertical">
-          <Heading as="h3">
-            Đăng kí tài khoản <span className="color-secondary">Sky News</span>
-          </Heading>
+          <Heading as="h3">Đăng kí tài khoản</Heading>
           <Form.Item
             label="Name"
             name="name"

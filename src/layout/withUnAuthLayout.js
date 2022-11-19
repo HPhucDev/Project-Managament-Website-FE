@@ -24,21 +24,14 @@ const withUnAuthLayout = (WraperContent) => {
                 className="bottomShape"
               />
               <Content>
-                <img
-                  style={{ width: "250px" }}
-                  src={require("../static/img/Logo_white.png")}
-                  alt=""
-                />
                 <br />
                 <br />
                 <Heading as="h1">
                   Chào bạn đã đến <br />
-                  Sky News
                 </Heading>
                 <img
-                  className="auth-content-figure"
-                  style={{ width: "500px" }}
-                  src={require("../static/img/login.png")}
+                  style={{ width: "380px" }}
+                  src={require("../static/img/logo.png")}
                   alt=""
                 />
               </Content>
