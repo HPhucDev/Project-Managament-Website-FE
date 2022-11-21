@@ -25,7 +25,11 @@ Teachers can manage their topics easier</p><h2>Technologies Used</h2>
 </ul><ul>
 <li>
 <ul>
-<li>macOS/Linux : In your terminal, run the nvm installer like this  "  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash " OR " wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash "</li>
+<li>macOS/Linux : In your terminal, run the nvm installer like this  
+"  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash " 
+OR 
+" wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash "
+</li>
 </ul>
 </li>
 </ul><ul>
