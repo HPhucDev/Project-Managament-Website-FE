@@ -59,7 +59,7 @@ const axiosClient = () => {
           if (!error.response) {
             toast.error("Không có kết nối đến server!");
           } else if (error?.response?.status === 400) {
-            // window.location.replace(pathName.Login);
+            window.location.replace(pathName.Login);
             handleLogout();
             toast.error("Phiên đăng nhập lỗi, vui lòng đăng nhập lại!");
           } else {

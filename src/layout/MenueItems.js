@@ -47,7 +47,7 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
       openKeys={openKeys}
     >
       <Menu.Item key="addUser" icon={!topMenu && <FeatherIcon icon="home" />}>
-        <NavLink onClick={toggleCollapsed} to={`${path}/users/add-user/info`}>
+        <NavLink onClick={toggleCollapsed} to={`${myRouter.DashBoard}`}>
           Trang chủ
         </NavLink>
       </Menu.Item>
@@ -74,12 +74,12 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         title="Giảng viên"
       >
         <Menu.Item key="teachers">
-          <NavLink onClick={toggleCollapsed} to={`${myRouter.Student}`}>
+          <NavLink onClick={toggleCollapsed} to={`${myRouter.Lecturer}`}>
             Danh sách giảng viên
           </NavLink>
         </Menu.Item>
         <Menu.Item key="teacherGroup">
-          <NavLink onClick={toggleCollapsed} to={`${path}/users/add-user/info`}>
+          <NavLink onClick={toggleCollapsed} to={`${myRouter.Lecturer_Group}`}>
             Hội đồng phản biện
           </NavLink>
         </Menu.Item>
@@ -100,7 +100,7 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
         key="help"
         icon={!topMenu && <FeatherIcon icon="help-circle" />}
       >
-        <NavLink onClick={toggleCollapsed} to={`${path}/users/add-user/info`}>
+        <NavLink onClick={toggleCollapsed} to={`${myRouter.Help}`}>
           Trợ giúp
         </NavLink>
       </Menu.Item>

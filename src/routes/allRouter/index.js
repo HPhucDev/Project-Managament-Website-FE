@@ -11,22 +11,34 @@ const SignUp = lazy(() =>
 const ForgotPass = lazy(() =>
   import("../../container/profile/authentication/overview/ForgotPassword")
 );
-const NotFound = lazy(() => import("../../container/pages/Other/404"));
+const ComingSoon = lazy(() => import("../../container/pages/Other/ComingSoon"));
 
-const Notification = lazy(() => import("../../container/pages/Notification"));
+const Help = lazy(() => import("../../container/pages/Other/support"));
+
+const Project = lazy(() => import("../../container/pages/Project/Project"));
 
 export const userRoutes = [
   {
-    path: pathName.Notification,
-    component: Notification,
-    title: "Notification",
+    path: pathName.DashBoard,
+    component: ComingSoon,
+    title: "DashboardBase",
+  },
+  {
+    path: pathName.Help,
+    component: Help,
+    title: "Help",
+  },
+  {
+    path: pathName.Project,
+    component: Project,
+    title: "Project",
   },
 
   {
     path: "*",
     component: (props) => {
       if (props.location.pathname === "/") {
-        return <Redirect to={pathName.Notification} />;
+        return <Redirect to={pathName.DashBoard} />;
       }
       return <Redirect to={pathName.PageNotFound} />;
     },
