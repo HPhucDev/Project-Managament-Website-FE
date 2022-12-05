@@ -56,12 +56,12 @@ const CreateProject = ({ visible, onCancel }) => {
   return (
     <Modal
       type={state.modalType}
-      title="Create Project"
+      title="Tạo đề tài"
       visible={state.visible}
       footer={[
         <div key="1" className="project-modal-footer">
           <Button size="default" type="primary" key="submit" onClick={handleOk}>
-            Add New Project
+            Tạo
           </Button>
           <Button
             size="default"
@@ -70,7 +70,7 @@ const CreateProject = ({ visible, onCancel }) => {
             outlined
             onClick={handleCancel}
           >
-            Cancel
+            Hủy
           </Button>
         </div>,
       ]}
@@ -80,67 +80,22 @@ const CreateProject = ({ visible, onCancel }) => {
         <BasicFormWrapper>
           <Form form={form} name="createProject" onFinish={handleOk}>
             <Form.Item name="project" label="">
-              <Input placeholder="Project Name" />
+              <Input placeholder="Tên đề tài" />
             </Form.Item>
-            <Form.Item name="category" initialValue="" label="">
-              <Select style={{ width: "100%" }}>
-                <Option value="">Project Category</Option>
-                <Option value="one">Project One</Option>
-                <Option value="two">Project Two</Option>
-              </Select>
-            </Form.Item>
+
             <Form.Item name="description" label="">
-              <Input.TextArea rows={4} placeholder="Project Description" />
+              <Input.TextArea rows={4} placeholder="Thông tin đề tài" />
             </Form.Item>
-            <Form.Item
-              name="pricacy"
-              initialValue={["team"]}
-              label="Project Privacy"
-            >
-              <CheckboxGroup options={options} />
-            </Form.Item>
-            <Form.Item name="members" label="Project Members">
-              <Input placeholder="Search Members" />
-            </Form.Item>
-            <div className="projects-members mb-30">
-              <img
-                style={{ width: "35px" }}
-                src={require(`../../../../static/img/users/1.png`)}
-                alt=""
-              />
-              <img
-                style={{ width: "35px" }}
-                src={require(`../../../../static/img/users/2.png`)}
-                alt=""
-              />
-              <img
-                style={{ width: "35px" }}
-                src={require(`../../../../static/img/users/3.png`)}
-                alt=""
-              />
-              <img
-                style={{ width: "35px" }}
-                src={require(`../../../../static/img/users/4.png`)}
-                alt=""
-              />
-              <img
-                style={{ width: "35px" }}
-                src={require(`../../../../static/img/users/5.png`)}
-                alt=""
-              />
-            </div>
-            <Row gutter={15}>
-              <Col md={12}>
-                <Form.Item name="start" label="Start Date">
-                  <DatePicker placeholder="mm/dd/yyyy" format={dateFormat} />
-                </Form.Item>
-              </Col>
-              <Col md={12}>
-                <Form.Item name="end" label="End Date">
-                  <DatePicker placeholder="mm/dd/yyyy" format={dateFormat} />
-                </Form.Item>
-              </Col>
-            </Row>
+            <Col md={12}>
+              <Form.Item name="start" label="Ngày bắt đầu">
+                <DatePicker placeholder="mm/dd/yyyy" format={dateFormat} />
+              </Form.Item>
+            </Col>
+            <Col md={12}>
+              <Form.Item name="end" label="Ngày kết thúc">
+                <DatePicker placeholder="mm/dd/yyyy" format={dateFormat} />
+              </Form.Item>
+            </Col>
           </Form>
         </BasicFormWrapper>
       </div>

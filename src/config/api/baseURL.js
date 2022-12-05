@@ -7,7 +7,7 @@ export const REFRESH_TOKEN = BASE_URL + "authenticate/refreshtoken";
 export const REGISTER = BASE_URL + "authenticate/register";
 
 // Lecture
-export const LECTURE = BASE_URL + "lecture";
+export const LECTURER = BASE_URL + "lecture";
 
 //Student
 export const STUDENT = BASE_URL + "student";

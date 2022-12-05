@@ -183,7 +183,7 @@ const ProjectLists = () => {
         project: (
           <ProjectListTitle>
             <Heading as="h4">
-              <Link to={`/hcmute/project/projectDetails/${id}`}>{title}</Link>
+              <Link to={`project/detail/${id}`}>{title}</Link>
             </Heading>
 
             <p>{category}</p>

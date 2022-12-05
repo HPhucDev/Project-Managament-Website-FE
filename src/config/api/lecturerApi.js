@@ -1,12 +1,13 @@
 import axios from "axios";
 import axiosClient from "./axiosClient";
-import { SUBJECT } from "./baseURL";
+import { LECTURER } from "./baseURL";
+import qs from "qs";
 
-export const ProjectService = {
-  getAllProjectApi: async (params) => {
+export const LecturerService = {
+  getAllLecturerApi: async (params) => {
     return axiosClient()({
       method: "GET",
-      url: SUBJECT,
+      url: LECTURER,
     })
       .then((res) => {
         return res;
@@ -15,10 +16,10 @@ export const ProjectService = {
         throw error;
       });
   },
-  createProjectApi: async (params) => {
+  createLecturerApi: async (params) => {
     return axiosClient()({
       method: "POST",
-      url: SUBJECT,
+      url: LECTURER,
       data: params,
     })
       .then((res) => {
@@ -28,10 +29,11 @@ export const ProjectService = {
         throw error;
       });
   },
-  deleteProjectApi: async (params) => {
+
+  deleteLecturerApi: async (params) => {
     return axiosClient()({
       method: "DELETE",
-      url: SUBJECT,
+      url: LECTURER,
       data: params,
     })
       .then((res) => {
@@ -41,22 +43,10 @@ export const ProjectService = {
         throw error;
       });
   },
-  getProjectByIDApi: async (params) => {
-    return axiosClient()({
-      method: "POST",
-      url: `${SUBJECT}/${params.id}`,
-    })
-      .then((res) => {
-        return res;
-      })
-      .catch((error) => {
-        throw error;
-      });
-  },
-  updateProjectApi: async (params) => {
+  updateLecturerApi: async (params) => {
     return axiosClient()({
       method: "PATCH",
-      url: `${SUBJECT}/${params.id}`,
+      url: `${LECTURER}/${params.id}`,
     })
       .then((res) => {
         return res;
@@ -65,10 +55,11 @@ export const ProjectService = {
         throw error;
       });
   },
-  approveProjectByIDApi: async (params) => {
+
+  getLecturerByIDApi: async (params) => {
     return axiosClient()({
       method: "POST",
-      url: `${SUBJECT}/deny/${params.subjectId}`,
+      url: `${LECTURER}/${params.id}`,
     })
       .then((res) => {
         return res;
@@ -77,25 +68,10 @@ export const ProjectService = {
         throw error;
       });
   },
-  denyProjectByIDApi: async (params) => {
-    return axiosClient()({
-      method: "POST",
-      url: `${SUBJECT}/deny/${params.subjectId}`,
-      params: {
-        description: params.description,
-      },
-    })
-      .then((res) => {
-        return res;
-      })
-      .catch((error) => {
-        throw error;
-      });
-  },
-  searchProjectApi: async (params) => {
+  searchLecturerApi: async (params) => {
     return axiosClient()({
       method: "GET",
-      url: `${SUBJECT}/search`,
+      url: `${LECTURER}/search`,
       data: params,
     })
       .then((res) => {

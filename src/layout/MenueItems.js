@@ -62,7 +62,10 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
           </NavLink>
         </Menu.Item>
         <Menu.Item key="mySubject">
-          <NavLink onClick={toggleCollapsed} to={`${myRouter.Project}/1`}>
+          <NavLink
+            onClick={toggleCollapsed}
+            to={`${myRouter.Project}/detail/1`}
+          >
             Đề tài của tôi
           </NavLink>
         </Menu.Item>

@@ -1,12 +1,13 @@
 import axios from "axios";
 import axiosClient from "./axiosClient";
-import { SUBJECT } from "./baseURL";
+import { LECTURER } from "./baseURL";
+import qs from "qs";
 
-export const ProjectService = {
-  getAllProjectApi: async (params) => {
+export const CommentService = {
+  getAllCommentApi: async () => {
     return axiosClient()({
       method: "GET",
-      url: SUBJECT,
+      url: LECTURER,
     })
       .then((res) => {
         return res;
@@ -15,11 +16,11 @@ export const ProjectService = {
         throw error;
       });
   },
-  createProjectApi: async (params) => {
+  createCommentApi: async (data) => {
     return axiosClient()({
       method: "POST",
-      url: SUBJECT,
-      data: params,
+      url: LECTURER,
+      data: data,
     })
       .then((res) => {
         return res;
@@ -28,35 +29,11 @@ export const ProjectService = {
         throw error;
       });
   },
-  deleteProjectApi: async (params) => {
-    return axiosClient()({
-      method: "DELETE",
-      url: SUBJECT,
-      data: params,
-    })
-      .then((res) => {
-        return res;
-      })
-      .catch((error) => {
-        throw error;
-      });
-  },
-  getProjectByIDApi: async (params) => {
-    return axiosClient()({
-      method: "POST",
-      url: `${SUBJECT}/${params.id}`,
-    })
-      .then((res) => {
-        return res;
-      })
-      .catch((error) => {
-        throw error;
-      });
-  },
-  updateProjectApi: async (params) => {
+  updateCommentApi: async (params) => {
     return axiosClient()({
       method: "PATCH",
-      url: `${SUBJECT}/${params.id}`,
+      url: `${LECTURER}/${params.id}`,
+      data: params,
     })
       .then((res) => {
         return res;
@@ -65,10 +42,10 @@ export const ProjectService = {
         throw error;
       });
   },
-  approveProjectByIDApi: async (params) => {
+  getCommentByIDApi: async (params) => {
     return axiosClient()({
       method: "POST",
-      url: `${SUBJECT}/deny/${params.subjectId}`,
+      url: `${LECTURER}/${params.id}`,
     })
       .then((res) => {
         return res;
@@ -77,13 +54,10 @@ export const ProjectService = {
         throw error;
       });
   },
-  denyProjectByIDApi: async (params) => {
+  deleteCommentApi: async (params) => {
     return axiosClient()({
-      method: "POST",
-      url: `${SUBJECT}/deny/${params.subjectId}`,
-      params: {
-        description: params.description,
-      },
+      method: "DELETE",
+      url: `${LECTURER}/${params.id}`,
     })
       .then((res) => {
         return res;
@@ -92,11 +66,23 @@ export const ProjectService = {
         throw error;
       });
   },
-  searchProjectApi: async (params) => {
+  getCommentByProgressIDApi: async (params) => {
     return axiosClient()({
       method: "GET",
-      url: `${SUBJECT}/search`,
-      data: params,
+      url: `${LECTURER}/getByProgress/${params.progressId}`,
+    })
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        throw error;
+      });
+  },
+  searchCommentApi: async (params) => {
+    return axiosClient()({
+      method: "GET",
+      url: `${LECTURER}/paging/`,
+      params: params,
     })
       .then((res) => {
         return res;

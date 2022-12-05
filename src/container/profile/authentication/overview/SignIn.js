@@ -38,7 +38,7 @@ const SignIn = () => {
     try {
       showLoader();
       const response = await authenticationService.signInApi({
-        phone: data.username,
+        username: data.username,
         password: data.password,
       });
       setDataLocal(response.data.data);

@@ -17,6 +17,10 @@ const Help = lazy(() => import("../../container/pages/Other/support"));
 
 const Project = lazy(() => import("../../container/pages/Project/Project"));
 
+const ProjectDetail = lazy(() =>
+  import("../../container/pages/Project/ProjectDetails")
+);
+
 export const userRoutes = [
   {
     path: pathName.DashBoard,
@@ -27,6 +31,11 @@ export const userRoutes = [
     path: pathName.Help,
     component: Help,
     title: "Help",
+  },
+  {
+    path: `${pathName.Project}/detail/:id`,
+    component: ProjectDetail,
+    title: "ProjectDetail",
   },
   {
     path: pathName.Project,
