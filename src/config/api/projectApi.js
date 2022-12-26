@@ -96,7 +96,7 @@ export const ProjectService = {
     return axiosClient()({
       method: "GET",
       url: `${SUBJECT}/search`,
-      data: params,
+      params: params,
     })
       .then((res) => {
         return res;

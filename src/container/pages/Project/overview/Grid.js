@@ -1,9 +1,10 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Row, Col, Pagination, Skeleton } from "antd";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Heading from "../../../../components/heading/heading";
 import { Cards } from "../../../../components/cards/frame/cards-frame";
 import { ProjectPagination } from "../style";
+import { addProjectCriteria } from "../../../../redux/slices/criteriaSearchSlice";
 
 const GridCard = lazy(() => import("./GridCard"));
 
@@ -142,13 +143,19 @@ const Grid = () => {
       percentage: 33,
     },
   ];
+  const dispatch = useDispatch();
 
-  const [state, setState] = useState({
-    projects: project,
-    current: 0,
-    pageSize: 0,
-  });
-  const { projects } = state;
+  const projects = useSelector((state) => state.projectStore.projects?.content);
+  console.log(projects);
+  const totalElements = useSelector(
+    (state) => state.projectStore.projects.totalElements
+  );
+  const pageSize = useSelector(
+    (state) => state.criteriaSearchStore.projectCriteria.pageSize
+  );
+  const pageIndex = useSelector(
+    (state) => state.criteriaSearchStore.projectCriteria.pageIndex
+  );
 
   // useEffect(() => {
   //   if (project) {
@@ -159,18 +166,25 @@ const Grid = () => {
   // }, [project]);
 
   const onShowSizeChange = (current, pageSize) => {
-    setState({ ...state, current, pageSize });
+    dispatch(
+      addProjectCriteria({
+        pageSize: pageSize,
+      })
+    );
   };
 
   const onHandleChange = (current, pageSize) => {
-    // You can create pagination in here
-    setState({ ...state, current, pageSize });
+    dispatch(
+      addProjectCriteria({
+        pageIndex: current - 1,
+      })
+    );
   };
 
   return (
     <Row gutter={25}>
-      {projects.length ? (
-        projects.map((value) => {
+      {projects?.length ? (
+        projects?.map((value) => {
           return (
             <Col key={value.id} xl={8} md={12} xs={24}>
               <Suspense
@@ -194,14 +208,14 @@ const Grid = () => {
       )}
       <Col xs={24} className="pb-30">
         <ProjectPagination>
-          {projects.length ? (
+          {projects?.length ? (
             <Pagination
               onChange={onHandleChange}
               showSizeChanger
               onShowSizeChange={onShowSizeChange}
-              pageSize={10}
-              defaultCurrent={1}
-              total={40}
+              pageSize={pageSize}
+              current={pageIndex + 1}
+              total={totalElements}
             />
           ) : null}
         </ProjectPagination>

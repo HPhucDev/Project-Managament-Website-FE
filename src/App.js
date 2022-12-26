@@ -14,6 +14,7 @@ import { authRoutes, userRoutes } from "./routes/allRouter";
 import withAdminLayout from "./layout/withAdminLayout";
 import withUnAuthLayout from "./layout/withUnAuthLayout";
 import NotFound from "./container/pages/Other/404";
+import { Toaster } from "react-hot-toast";
 
 const { theme } = config;
 
@@ -23,6 +24,11 @@ const ProviderConfig = () => {
   return (
     <ConfigProvider direction={rtl ? "rtl" : "ltr"}>
       <ThemeProvider theme={{ ...theme, rtl, topMenu, darkMode }}>
+        <Toaster
+          reverseOrder={false}
+          position="bottom-right"
+          containerStyle={{ zIndex: 999999 }}
+        />
         <Router>
           <Switch>
             <Route path={"/page-not-found"} component={NotFound} />

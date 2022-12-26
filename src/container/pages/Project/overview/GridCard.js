@@ -9,14 +9,14 @@ import { textRefactor } from "../../../../components/utilities/utilities";
 import { ProjectCard } from "../style";
 
 const GridCard = ({ value }) => {
-  const { id, title, status, content, percentage } = value;
+  const { id, name, status, description } = value;
   return (
     <ProjectCard>
       <Cards headless>
         <div className="project-top">
           <div className="project-title">
             <h1>
-              <Link to={`project/detail/${id}`}>{title}</Link>
+              <Link to={`project/detail/${id}`}>{name}</Link>
               <Tag className={status}>{status}</Tag>
             </h1>
             <Dropdown
@@ -34,7 +34,7 @@ const GridCard = ({ value }) => {
               </Link>
             </Dropdown>
           </div>
-          <p className="project-desc">{textRefactor(content, 13)}</p>
+          <p className="project-desc">{textRefactor(description, 13)}</p>
           <div className="project-timing">
             <div>
               <span>Start Date</span>
@@ -45,7 +45,7 @@ const GridCard = ({ value }) => {
               <strong>18 Mar 2020</strong>
             </div>
           </div>
-          <div className="project-progress">
+          {/* <div className="project-progress">
             <Progress
               percent={status === "complete" ? 100 : percentage}
               strokeWidth={5}
@@ -53,7 +53,7 @@ const GridCard = ({ value }) => {
               className="progress-primary"
             />
             <p>12/15 Task Completed</p>
-          </div>
+          </div> */}
         </div>
         <div className="project-bottom">
           <div className="project-assignees">

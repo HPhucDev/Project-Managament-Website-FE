@@ -1,5 +1,5 @@
-import React, { lazy, useState, Suspense } from "react";
-import { useDispatch } from "react-redux";
+import React, { lazy, useState, Suspense, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Spin, Select } from "antd";
 import { Switch, NavLink, Route, Link } from "react-router-dom";
 import FeatherIcon from "feather-icons-react";
@@ -11,55 +11,40 @@ import { Button } from "../../../components/buttons/buttons";
 
 import { Main } from "../../styled";
 import { PageHeader } from "../../../components/page-headers/page-headers";
+import usePageLoader from "../../../hooks/usePageLoader";
+import { searchProjects } from "../../../redux/slices/projectSlice";
 
 const Grid = lazy(() => import("./overview/Grid"));
 const List = lazy(() => import("./overview/List"));
 
 const Project = ({ match }) => {
-  const dispatch = useDispatch();
-  const searchData = null;
   const { path } = match;
-  const [state, setState] = useState({
-    notData: searchData,
-    visible: false,
-    categoryActive: "all",
-  });
+  const dispatch = useDispatch();
+  const [loader, showLoader, hideLoader] = usePageLoader();
+  const listProjectCriteria = useSelector(
+    (state) => state.criteriaSearchStore.projectCriteria
+  );
+  console.log(listProjectCriteria);
+  useEffect(() => {
+    loadData();
+  }, [listProjectCriteria]);
 
-  const { notData, visible } = state;
-  const handleSearch = (searchText) => {
-    const data = searchData.filter((item) =>
-      item.title.toUpperCase().startsWith(searchText.toUpperCase())
+  const loadData = async () => {
+    showLoader();
+    dispatch(
+      searchProjects({
+        lectureId: listProjectCriteria.lectureId,
+        major: listProjectCriteria.major,
+        pageSize: listProjectCriteria.pageSize,
+        pageIndex: listProjectCriteria.pageIndex,
+        order: listProjectCriteria.order,
+        searchKey: listProjectCriteria.searchKey,
+        sort: listProjectCriteria.sort,
+        subjectStatus: listProjectCriteria.subjectStatus,
+      })
     );
-    setState({
-      ...state,
-      notData: data,
-    });
-  };
 
-  const onSorting = (selectedItems) => {
-    // dispatch(sortingProjectByCategory(selectedItems));
-  };
-
-  const onChangeCategory = (value) => {
-    setState({
-      ...state,
-      categoryActive: value,
-    });
-    // dispatch(filterProjectByStatus(value));
-  };
-
-  const showModal = () => {
-    setState({
-      ...state,
-      visible: true,
-    });
-  };
-
-  const onCancel = () => {
-    setState({
-      ...state,
-      visible: false,
-    });
+    hideLoader();
   };
 
   return (
@@ -70,7 +55,7 @@ const Project = ({ match }) => {
           title="Danh sách đề tài"
           subTitle={<>24 đề tài</>}
           buttons={[
-            <Button onClick={showModal} key="1" type="primary" size="default">
+            <Button key="1" type="primary" size="default">
               <FeatherIcon icon="plus" size={16} /> Thêm đề tài
             </Button>,
           ]}
@@ -85,65 +70,59 @@ const Project = ({ match }) => {
                   <nav>
                     <ul>
                       <li
-                        className={
-                          state.categoryActive === "all"
-                            ? "active"
-                            : "deactivate"
-                        }
+                      // className={
+                      //   state.categoryActive === "all"
+                      //     ? "active"
+                      //     : "deactivate"
+                      // }
                       >
-                        <Link onClick={() => onChangeCategory("all")} to="#">
-                          Tất cả
-                        </Link>
+                        <Link to="#">Tất cả</Link>
                       </li>
                       <li
-                        className={
-                          state.categoryActive === "progress"
-                            ? "active"
-                            : "deactivate"
-                        }
+                      // className={
+                      //   state.categoryActive === "progress"
+                      //     ? "active"
+                      //     : "deactivate"
+                      // }
                       >
                         <Link
-                          onClick={() => onChangeCategory("progress")}
+                          // onClick={() => onChangeCategory("progress")}
                           to="#"
                         >
                           Đang thực hiện
                         </Link>
                       </li>
                       <li
-                        className={
-                          state.categoryActive === "complete"
-                            ? "active"
-                            : "deactivate"
-                        }
+                      // className={
+                      //   state.categoryActive === "complete"
+                      //     ? "active"
+                      //     : "deactivate"
+                      // }
                       >
                         <Link
-                          onClick={() => onChangeCategory("complete")}
+                          // onClick={() => onChangeCategory("complete")}
                           to="#"
                         >
                           Hoàn thành
                         </Link>
                       </li>
                       <li
-                        className={
-                          state.categoryActive === "late"
-                            ? "active"
-                            : "deactivate"
-                        }
+                      // className={
+                      //   state.categoryActive === "late"
+                      //     ? "active"
+                      //     : "deactivate"
+                      // }
                       >
-                        <Link onClick={() => onChangeCategory("late")} to="#">
-                          Trễ
-                        </Link>
+                        <Link to="#">Trễ</Link>
                       </li>
                       <li
-                        className={
-                          state.categoryActive === "early"
-                            ? "active"
-                            : "deactivate"
-                        }
+                      // className={
+                      //   state.categoryActive === "early"
+                      //     ? "active"
+                      //     : "deactivate"
+                      // }
                       >
-                        <Link onClick={() => onChangeCategory("early")} to="#">
-                          Sớm
-                        </Link>
+                        <Link to="#">Sớm</Link>
                       </li>
                     </ul>
                   </nav>
@@ -159,11 +138,15 @@ const Project = ({ match }) => {
                 <div className="project-sort-group">
                   <div className="sort-group">
                     <span>Sắp xếp:</span>
-                    <Select onChange={onSorting} defaultValue="name">
+                    <Select
+                      // onChange={onSorting}
+                      defaultValue="name"
+                    >
                       <Select.Option value="name">Tên đề tài</Select.Option>
                       <Select.Option value="createDate">Ngày tạo</Select.Option>
                     </Select>
                     <div className="layout-style">
+                      {loader}
                       <NavLink to={`${path}/grid`}>
                         <FeatherIcon icon="grid" size={16} />
                       </NavLink>
@@ -192,7 +175,7 @@ const Project = ({ match }) => {
             </div>
           </Col>
         </Row>
-        <CreateProject onCancel={onCancel} visible={visible} />
+        {/* <CreateProject onCancel={onCancel} visible={visible} /> */}
       </Main>
     </>
   );
