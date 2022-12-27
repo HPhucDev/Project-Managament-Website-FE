@@ -15,6 +15,7 @@ import withAdminLayout from "./layout/withAdminLayout";
 import withUnAuthLayout from "./layout/withUnAuthLayout";
 import NotFound from "./container/pages/Other/404";
 import { Toaster } from "react-hot-toast";
+import vi_VN from "antd/es/locale/vi_VN";
 
 const { theme } = config;
 
@@ -22,7 +23,7 @@ const ProviderConfig = () => {
   const { rtl, topMenu, darkMode } = config;
 
   return (
-    <ConfigProvider direction={rtl ? "rtl" : "ltr"}>
+    <ConfigProvider direction={rtl ? "rtl" : "ltr"} locale={vi_VN}>
       <ThemeProvider theme={{ ...theme, rtl, topMenu, darkMode }}>
         <Toaster
           reverseOrder={false}

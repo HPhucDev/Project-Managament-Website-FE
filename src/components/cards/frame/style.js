@@ -1,7 +1,7 @@
-import Styled from 'styled-components';
-import { Card } from 'antd';
+import Styled from "styled-components";
+import { Card } from "antd";
 
-const BtnWraper = theme => `
+const BtnWraper = (theme) => `
     .ant-card-head {
       display: flex;
       justify-content: space-evenly;
@@ -23,19 +23,19 @@ const BtnWraper = theme => `
         border-radius: 2px;
         height: 30px;
         margin: 0px;
-        ${theme.rtl ? 'margin-right' : 'margin-left'}: -1px;
+        ${theme.rtl ? "margin-right" : "margin-left"}: -1px;
         display: inline-flex;
         align-items: center;
-        border: 1px solid ${theme['border-color-base']};
+        border: 1px solid ${theme["border-color-base"]};
         background: #fff;
         span svg {
-          ${theme.rtl ? 'padding-right' : 'padding-left'}: 5px !important;
+          ${theme.rtl ? "padding-right" : "padding-left"}: 5px !important;
         }
       }
       .ant-tabs-nav .ant-tabs-tab-active {
         font-weight: 500;
-        border: 1px solid ${theme['primary-color']};
-        background: ${theme['primary-color']};
+        border: 1px solid ${theme["primary-color"]};
+        background: ${theme["primary-color"]};
         color: #fff;
         border-radius: 2px;
         height: 30px;
@@ -73,25 +73,25 @@ const CardFrame = Styled(Card)`
     font-weight: 500;
   }
   .ant-card-body{
-    padding: ${({ bodypadding }) => (bodypadding ? `${bodypadding} !important` : '25px')};
+    padding: ${({ bodypadding }) =>
+      bodypadding ? `${bodypadding} !important` : "25px"};
     table{
       .ant-tag{
         line-height: 18px;
         border: 0 none;
         text-transform: uppercase;
         font-size: 10px;
-        color: #fff;
         &.early{
-          background: ${({ theme }) => theme['primary-color']};
+          background: ${({ theme }) => theme["primary-color"]};
         }
         &.late{
-          background: ${({ theme }) => theme['warning-color']};
+          background: ${({ theme }) => theme["warning-color"]};
         }
         &.complete{
-          background: ${({ theme }) => theme['success-color']};
+          background: ${({ theme }) => theme["success-color"]};
         }
         &.progress{
-          background: ${({ theme }) => theme['danger-color']};
+          background: ${({ theme }) => theme["danger-color"]};
         }
       }
     }
@@ -108,21 +108,22 @@ const CardFrame = Styled(Card)`
     align-items: center;
   }
   .custom-label:not(:last-child) {
-    ${({ theme }) => (theme.rtl ? ' margin-left' : ' margin-right')} : 20px;
+    ${({ theme }) => (theme.rtl ? " margin-left" : " margin-right")} : 20px;
   }
 
   .custom-label span {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    ${({ theme }) => (theme.rtl ? ' margin-left' : ' margin-right')}: 7px;
+    ${({ theme }) => (theme.rtl ? " margin-left" : " margin-right")}: 7px;
   }
   
 
   .ant-card-extra .ant-dropdown-trigger {
     line-height: 0;
     order: 1;
-    ${({ theme }) => (!theme.rtl ? ' margin-left' : ' margin-right')}: 20px !important;
+    ${({ theme }) =>
+      !theme.rtl ? " margin-left" : " margin-right"}: 20px !important;
   }
 
   .growth-downward h1 sub,
@@ -130,7 +131,7 @@ const CardFrame = Styled(Card)`
     font-size: 14px;
     font-weight: 600;
     bottom: 0;
-    ${({ theme }) => (!theme.rtl ? ' left' : ' right')}: 5px;
+    ${({ theme }) => (!theme.rtl ? " left" : " right")}: 5px;
   }
  
 `;

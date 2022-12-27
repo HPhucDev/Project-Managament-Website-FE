@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Row, Col, Table, Progress, Pagination, Tag } from "antd";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import FeatherIcon from "feather-icons-react";
+import {
+  ClockCircleOutlined,
+  CloseCircleOutlined,
+  SyncOutlined,
+  CheckCircleOutlined,
+} from "@ant-design/icons";
 import Heading from "../../../../components/heading/heading";
 import { Cards } from "../../../../components/cards/frame/cards-frame";
 import {
@@ -12,149 +18,23 @@ import {
   ProjectList,
 } from "../style";
 import { Dropdown } from "../../../../components/dropdown/dropdown";
+import { addProjectCriteria } from "../../../../redux/slices/criteriaSearchSlice";
+import { formatDateDDMMYYYY } from "../../../../utility/dateUtils";
 
 const ProjectLists = () => {
-  const project = [
-    {
-      id: 1,
-      title: "Dashboard UI Project",
-      status: "early",
-      content:
-        "Adipisicing eu magna velit est exercitation et consequat Lorem laboris nulla. Laborum exercitation minim id ea ea. Minim cillum magna excepteur laboris duis labore pariatur Lorem aute cupidatat velit sunt non. Est laborum anim aliqua in elit consequat elit elit cupidatat. Nulla excepteur laborum voluptate nisi eiusmod nostrud sit. Aute aliquip sit non consectetur laborum velit in exercitation laboris officia adipisicing deserunt. Sint laboris aute minim aliqua aute culpa laboris ad amet dolor ea Lorem sit.",
-      category: "Web Design",
-      rate: 5,
-      popular: 1,
-      percentage: 85,
-    },
-    {
-      id: 2,
-      title: "Custom Software",
-      status: "progress",
-      content:
-        "Adipisicing eu magna velit est exercitation et consequat Lorem laboris nulla. Laborum exercitation minim id ea ea. Minim cillum magna excepteur laboris duis labore pariatur Lorem aute cupidatat velit sunt non. Est laborum anim aliqua in elit consequat elit elit cupidatat. Nulla excepteur laborum voluptate nisi eiusmod nostrud sit. Aute aliquip sit non consectetur laborum velit in exercitation laboris officia adipisicing deserunt. Sint laboris aute minim aliqua aute culpa laboris ad amet dolor ea Lorem sit.",
-      category: "Web Development",
-      rate: 3,
-      popular: 2,
-      percentage: 38,
-    },
-    {
-      id: 3,
-      title: "Application UI Design",
-      status: "early",
-      content:
-        "Adipisicing eu magna velit est exercitation et consequat Lorem laboris nulla. Laborum exercitation minim id ea ea. Minim cillum magna excepteur laboris duis labore pariatur Lorem aute cupidatat velit sunt non. Est laborum anim aliqua in elit consequat elit elit cupidatat. Nulla excepteur laborum voluptate nisi eiusmod nostrud sit. Aute aliquip sit non consectetur laborum velit in exercitation laboris officia adipisicing deserunt. Sint laboris aute minim aliqua aute culpa laboris ad amet dolor ea Lorem sit.",
-      category: "Graphic Design",
-      rate: 4,
-      popular: 3,
-      percentage: 46,
-    },
-    {
-      id: 4,
-      title: "Website Builder",
-      status: "late",
-      content:
-        "Adipisicing eu magna velit est exercitation et consequat Lorem laboris nulla. Laborum exercitation minim id ea ea. Minim cillum magna excepteur laboris duis labore pariatur Lorem aute cupidatat velit sunt non. Est laborum anim aliqua in elit consequat elit elit cupidatat. Nulla excepteur laborum voluptate nisi eiusmod nostrud sit. Aute aliquip sit non consectetur laborum velit in exercitation laboris officia adipisicing deserunt. Sint laboris aute minim aliqua aute culpa laboris ad amet dolor ea Lorem sit.",
-      category: "Web Development",
-      rate: 5,
-      popular: 4,
-      percentage: 29,
-    },
-    {
-      id: 5,
-      title: "Component Library",
-      status: "progress",
-      content:
-        "Adipisicing eu magna velit est exercitation et consequat Lorem laboris nulla. Laborum exercitation minim id ea ea. Minim cillum magna excepteur laboris duis labore pariatur Lorem aute cupidatat velit sunt non. Est laborum anim aliqua in elit consequat elit elit cupidatat. Nulla excepteur laborum voluptate nisi eiusmod nostrud sit. Aute aliquip sit non consectetur laborum velit in exercitation laboris officia adipisicing deserunt. Sint laboris aute minim aliqua aute culpa laboris ad amet dolor ea Lorem sit.",
-      category: "Web Development",
-      rate: 4,
-      popular: 5,
-      percentage: 96,
-    },
-    {
-      id: 6,
-      title: "Dashboard UI Project",
-      status: "complete",
-      content:
-        "Adipisicing eu magna velit est exercitation et consequat Lorem laboris nulla. Laborum exercitation minim id ea ea. Minim cillum magna excepteur laboris duis labore pariatur Lorem aute cupidatat velit sunt non. Est laborum anim aliqua in elit consequat elit elit cupidatat. Nulla excepteur laborum voluptate nisi eiusmod nostrud sit. Aute aliquip sit non consectetur laborum velit in exercitation laboris officia adipisicing deserunt. Sint laboris aute minim aliqua aute culpa laboris ad amet dolor ea Lorem sit.",
-      category: "Graphic Design",
-      rate: 3,
-      popular: 6,
-      percentage: 73,
-    },
-    {
-      id: 7,
-      title: "Custom Software",
-      status: "progress",
-      content:
-        "Adipisicing eu magna velit est exercitation et consequat Lorem laboris nulla. Laborum exercitation minim id ea ea. Minim cillum magna excepteur laboris duis labore pariatur Lorem aute cupidatat velit sunt non. Est laborum anim aliqua in elit consequat elit elit cupidatat. Nulla excepteur laborum voluptate nisi eiusmod nostrud sit. Aute aliquip sit non consectetur laborum velit in exercitation laboris officia adipisicing deserunt. Sint laboris aute minim aliqua aute culpa laboris ad amet dolor ea Lorem sit.",
-      category: "Web Development",
-      rate: 2,
-      popular: 7,
-      percentage: 42,
-    },
-    {
-      id: 8,
-      title: "Application UI Design",
-      status: "early",
-      content:
-        "Adipisicing eu magna velit est exercitation et consequat Lorem laboris nulla. Laborum exercitation minim id ea ea. Minim cillum magna excepteur laboris duis labore pariatur Lorem aute cupidatat velit sunt non. Est laborum anim aliqua in elit consequat elit elit cupidatat. Nulla excepteur laborum voluptate nisi eiusmod nostrud sit. Aute aliquip sit non consectetur laborum velit in exercitation laboris officia adipisicing deserunt. Sint laboris aute minim aliqua aute culpa laboris ad amet dolor ea Lorem sit.",
-      category: "Graphic Design",
-      rate: 4,
-      popular: 8,
-      percentage: 36,
-    },
-    {
-      id: 9,
-      title: "Website Builder",
-      status: "late",
-      content:
-        "Adipisicing eu magna velit est exercitation et consequat Lorem laboris nulla. Laborum exercitation minim id ea ea. Minim cillum magna excepteur laboris duis labore pariatur Lorem aute cupidatat velit sunt non. Est laborum anim aliqua in elit consequat elit elit cupidatat. Nulla excepteur laborum voluptate nisi eiusmod nostrud sit. Aute aliquip sit non consectetur laborum velit in exercitation laboris officia adipisicing deserunt. Sint laboris aute minim aliqua aute culpa laboris ad amet dolor ea Lorem sit.",
-      category: "Web Development",
-      rate: 3,
-      popular: 9,
-      percentage: 82,
-    },
-    {
-      id: 10,
-      title: "Component Library",
-      status: "progress",
-      content:
-        "Adipisicing eu magna velit est exercitation et consequat Lorem laboris nulla. Laborum exercitation minim id ea ea. Minim cillum magna excepteur laboris duis labore pariatur Lorem aute cupidatat velit sunt non. Est laborum anim aliqua in elit consequat elit elit cupidatat. Nulla excepteur laborum voluptate nisi eiusmod nostrud sit. Aute aliquip sit non consectetur laborum velit in exercitation laboris officia adipisicing deserunt. Sint laboris aute minim aliqua aute culpa laboris ad amet dolor ea Lorem sit.",
-      category: "Web Development",
-      rate: 2,
-      popular: 10,
-      percentage: 63,
-    },
-    {
-      id: 11,
-      title: "Dashboard UI Project",
-      status: "complete",
-      content:
-        "Adipisicing eu magna velit est exercitation et consequat Lorem laboris nulla. Laborum exercitation minim id ea ea. Minim cillum magna excepteur laboris duis labore pariatur Lorem aute cupidatat velit sunt non. Est laborum anim aliqua in elit consequat elit elit cupidatat. Nulla excepteur laborum voluptate nisi eiusmod nostrud sit. Aute aliquip sit non consectetur laborum velit in exercitation laboris officia adipisicing deserunt. Sint laboris aute minim aliqua aute culpa laboris ad amet dolor ea Lorem sit.",
-      category: "Graphic Design",
-      rate: 1,
-      popular: 11,
-      percentage: 53,
-    },
-    {
-      id: 12,
-      title: "Dashboard UI Project",
-      status: "early",
-      content:
-        "Adipisicing eu magna velit est exercitation et consequat Lorem laboris nulla. Laborum exercitation minim id ea ea. Minim cillum magna excepteur laboris duis labore pariatur Lorem aute cupidatat velit sunt non. Est laborum anim aliqua in elit consequat elit elit cupidatat. Nulla excepteur laborum voluptate nisi eiusmod nostrud sit. Aute aliquip sit non consectetur laborum velit in exercitation laboris officia adipisicing deserunt. Sint laboris aute minim aliqua aute culpa laboris ad amet dolor ea Lorem sit.",
-      category: "Web Design",
-      rate: 5,
-      popular: 12,
-      percentage: 33,
-    },
-  ];
+  const dispatch = useDispatch();
 
-  const [state, setState] = useState({
-    projects: project,
-    current: 0,
-    pageSize: 0,
-  });
-  const { projects } = state;
+  const projects = useSelector((state) => state.projectStore.projects?.content);
+  console.log(projects);
+  const totalElements = useSelector(
+    (state) => state.projectStore.projects.totalElements
+  );
+  const pageSize = useSelector(
+    (state) => state.criteriaSearchStore.projectCriteria.pageSize
+  );
+  const pageIndex = useSelector(
+    (state) => state.criteriaSearchStore.projectCriteria.pageIndex
+  );
 
   // useEffect(() => {
   //   if (project) {
@@ -165,99 +45,114 @@ const ProjectLists = () => {
   // }, [project]);
 
   const onShowSizeChange = (current, pageSize) => {
-    setState({ ...state, current, pageSize });
+    dispatch(
+      addProjectCriteria({
+        pageSize: pageSize,
+      })
+    );
   };
 
   const onHandleChange = (current, pageSize) => {
-    // You can create pagination in here
-    setState({ ...state, current, pageSize });
+    dispatch(
+      addProjectCriteria({
+        pageIndex: current - 1,
+      })
+    );
+  };
+
+  const handleCheckStatus = (status) => {
+    const allStatus = {
+      "0": (
+        <Tag icon={<CloseCircleOutlined />} color="error">
+          Phê duyệt thất bại
+        </Tag>
+      ),
+      "1": (
+        <Tag icon={<ClockCircleOutlined />} color="warning">
+          Chờ phê duyệt
+        </Tag>
+      ),
+      "2": (
+        <Tag icon={<SyncOutlined spin />} color="processing">
+          Đang thực hiện
+        </Tag>
+      ),
+      "3": (
+        <Tag icon={<ClockCircleOutlined />} color="default">
+          Chưa có sinh viên đăng kí
+        </Tag>
+      ),
+      "4": (
+        <Tag icon={<CheckCircleOutlined />} color="success">
+          Đã có sinh viên đăng kí
+        </Tag>
+      ),
+    };
+    return allStatus[status];
   };
 
   const dataSource = [];
 
-  if (projects.length)
-    projects.map((value) => {
-      const { id, title, status, category, percentage } = value;
+  if (projects?.length)
+    projects.map((project) => {
       return dataSource.push({
-        key: id,
+        key: project?.id,
         project: (
           <ProjectListTitle>
             <Heading as="h4">
-              <Link to={`project/detail/${id}`}>{title}</Link>
+              <Link to={`project/detail/${project?.id}`}>{project?.name}</Link>
             </Heading>
-
-            <p>{category}</p>
           </ProjectListTitle>
         ),
-        startDate: <span className="date-started">26 Dec 2019</span>,
-        deadline: <span className="date-finished">18 Mar 2020</span>,
+        startDate: (
+          <span className="date-started">
+            {formatDateDDMMYYYY(project?.startDate)}
+          </span>
+        ),
+        deadline: (
+          <span className="date-finished">
+            {formatDateDDMMYYYY(project?.endDate)}
+          </span>
+        ),
         assigned: (
           <ProjectListAssignees>
             <ul>
               <li>
-                <img
-                  src={require(`../../../../static/img/users/1.png`)}
-                  alt=""
-                />
+                {project?.groupLeader?.imgLink && (
+                  <img src={project?.groupLeader?.imgLink} alt="" />
+                )}
               </li>
-              <li>
-                <img
-                  src={require(`../../../../static/img/users/2.png`)}
-                  alt=""
-                />
-              </li>
-              <li>
-                <img
-                  src={require(`../../../../static/img/users/3.png`)}
-                  alt=""
-                />
-              </li>
-              <li>
-                <img
-                  src={require(`../../../../static/img/users/4.png`)}
-                  alt=""
-                />
-              </li>
-              <li>
-                <img
-                  src={require(`../../../../static/img/users/5.png`)}
-                  alt=""
-                />
-              </li>
-              <li>
-                <img
-                  src={require(`../../../../static/img/users/6.png`)}
-                  alt=""
-                />
-              </li>
-              <li>
-                <img
-                  src={require(`../../../../static/img/users/7.png`)}
-                  alt=""
-                />
-              </li>
+              {project?.groupMember &&
+                project?.groupMember.map((item) => {
+                  return (
+                    <li style={{ display: "grid", justifyContent: "center" }}>
+                      <img src={item?.imgLink} alt="" />
+                    </li>
+                  );
+                })}
             </ul>
           </ProjectListAssignees>
         ),
-        status: <Tag className={status}>{status}</Tag>,
-        completion: (
-          <div className="project-list-progress">
-            <Progress
-              percent={status === "complete" ? 100 : percentage}
-              strokeWidth={5}
-              className="progress-primary"
-            />
-            <p>12/15 Task Completed</p>
-          </div>
-        ),
+        status: handleCheckStatus(project?.status),
+        // completion: (
+        //   <div className="project-list-progress">
+        //     <Progress
+        //       percent={status === "complete" ? 100 : percentage}
+        //       strokeWidth={5}
+        //       className="progress-primary"
+        //     />
+        //     <p>12/15 Task Completed</p>
+        //   </div>
+        // ),
         action: (
           <Dropdown
             className="wide-dropdwon"
             content={
               <>
-                <Link to="#">View</Link>
-                <Link to="#">Edit</Link>
-                <Link to="#">Delete</Link>
+                <Link to={`project/detail/${project?.id}`}>
+                  Xem thông tin chi tiết
+                </Link>
+                <Link to="#">Xóa đề tài</Link>
               </>
             }
           >
@@ -325,14 +220,14 @@ const ProjectLists = () => {
       </Col>
       <Col xs={24} className="pb-30">
         <ProjectPagination>
-          {projects.length ? (
+          {projects?.length ? (
             <Pagination
               onChange={onHandleChange}
               showSizeChanger
               onShowSizeChange={onShowSizeChange}
-              pageSize={10}
-              defaultCurrent={1}
-              total={40}
+              pageSize={pageSize}
+              current={pageIndex + 1}
+              total={totalElements}
             />
           ) : null}
         </ProjectPagination>

@@ -194,7 +194,7 @@ const Grid = () => {
                   </Cards>
                 }
               >
-                <GridCard value={value} />
+                <GridCard project={value} />
               </Suspense>
             </Col>
           );

@@ -1,6 +1,6 @@
 import React, { lazy, useState, Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, Spin, Select } from "antd";
+import { Row, Col, Spin, Select, Tag } from "antd";
 import { Switch, NavLink, Route, Link } from "react-router-dom";
 import FeatherIcon from "feather-icons-react";
 import propTypes from "prop-types";
@@ -13,6 +13,7 @@ import { Main } from "../../styled";
 import { PageHeader } from "../../../components/page-headers/page-headers";
 import usePageLoader from "../../../hooks/usePageLoader";
 import { searchProjects } from "../../../redux/slices/projectSlice";
+import { addProjectCriteria } from "../../../redux/slices/criteriaSearchSlice";
 
 const Grid = lazy(() => import("./overview/Grid"));
 const List = lazy(() => import("./overview/List"));
@@ -24,7 +25,7 @@ const Project = ({ match }) => {
   const listProjectCriteria = useSelector(
     (state) => state.criteriaSearchStore.projectCriteria
   );
-  console.log(listProjectCriteria);
+  const projects = useSelector((state) => state.projectStore.projects);
   useEffect(() => {
     loadData();
   }, [listProjectCriteria]);
@@ -47,13 +48,29 @@ const Project = ({ match }) => {
     hideLoader();
   };
 
+  const onHandleChangeStatus = (status) => {
+    dispatch(
+      addProjectCriteria({
+        subjectStatus: status,
+      })
+    );
+  };
+
+  const onSorting = (sort) => {
+    dispatch(
+      addProjectCriteria({
+        sort: sort,
+      })
+    );
+  };
+
   return (
     <>
       <ProjectHeader>
         <PageHeader
           ghost
           title="Danh sách đề tài"
-          subTitle={<>24 đề tài</>}
+          subTitle={<>{projects?.totalElements} đề tài</>}
           buttons={[
             <Button key="1" type="primary" size="default">
               <FeatherIcon icon="plus" size={16} /> Thêm đề tài
@@ -70,59 +87,94 @@ const Project = ({ match }) => {
                   <nav>
                     <ul>
                       <li
-                      // className={
-                      //   state.categoryActive === "all"
-                      //     ? "active"
-                      //     : "deactivate"
-                      // }
-                      >
-                        <Link to="#">Tất cả</Link>
-                      </li>
-                      <li
-                      // className={
-                      //   state.categoryActive === "progress"
-                      //     ? "active"
-                      //     : "deactivate"
-                      // }
+                        className={
+                          listProjectCriteria.subjectStatus === "NULL"
+                            ? "active"
+                            : "deactivate"
+                        }
                       >
                         <Link
-                          // onClick={() => onChangeCategory("progress")}
                           to="#"
+                          style={{ marginRight: "10px" }}
+                          onClick={() => onHandleChangeStatus("NULL")}
+                        >
+                          Tất cả
+                        </Link>
+                      </li>
+                      <li
+                        className={
+                          listProjectCriteria.subjectStatus === "PENDING"
+                            ? "active"
+                            : "deactivate"
+                        }
+                      >
+                        <Link
+                          to="#"
+                          style={{ marginRight: "10px" }}
+                          onClick={() => onHandleChangeStatus("PENDING")}
                         >
                           Đang thực hiện
                         </Link>
                       </li>
                       <li
-                      // className={
-                      //   state.categoryActive === "complete"
-                      //     ? "active"
-                      //     : "deactivate"
-                      // }
+                        className={
+                          listProjectCriteria.subjectStatus === "NEED_CHECKED"
+                            ? "active"
+                            : "deactivate"
+                        }
                       >
                         <Link
-                          // onClick={() => onChangeCategory("complete")}
                           to="#"
+                          style={{ marginRight: "10px" }}
+                          onClick={() => onHandleChangeStatus("NEED_CHECKED")}
                         >
-                          Hoàn thành
+                          Chờ phê duyệt
                         </Link>
                       </li>
                       <li
-                      // className={
-                      //   state.categoryActive === "late"
-                      //     ? "active"
-                      //     : "deactivate"
-                      // }
+                        className={
+                          listProjectCriteria.subjectStatus === "REJECT"
+                            ? "active"
+                            : "deactivate"
+                        }
                       >
-                        <Link to="#">Trễ</Link>
+                        <Link
+                          to="#"
+                          style={{ marginRight: "10px" }}
+                          onClick={() => onHandleChangeStatus("REJECT")}
+                        >
+                          Phê duyệt thất bại
+                        </Link>
                       </li>
                       <li
-                      // className={
-                      //   state.categoryActive === "early"
-                      //     ? "active"
-                      //     : "deactivate"
-                      // }
+                        className={
+                          listProjectCriteria.subjectStatus === "UNASSIGNED"
+                            ? "active"
+                            : "deactivate"
+                        }
                       >
-                        <Link to="#">Sớm</Link>
+                        <Link
+                          to="#"
+                          style={{ marginRight: "10px" }}
+                          onClick={() => onHandleChangeStatus("UNASSIGNED")}
+                        >
+                          Chưa có sinh viên đăng kí
+                        </Link>
+                      </li>
+                      <li
+                        className={
+                          listProjectCriteria.subjectStatus === "ASSIGNED"
+                            ? "active"
+                            : "deactivate"
+                        }
+                      >
+                        <Link
+                          to="#"
+                          style={{ marginRight: "10px" }}
+                          onClick={() => onHandleChangeStatus("ASSIGNED")}
+                        >
+                          Đã có sinh viên đăng kí
+                        </Link>
                       </li>
                     </ul>
                   </nav>
@@ -138,12 +190,9 @@ const Project = ({ match }) => {
                 <div className="project-sort-group">
                   <div className="sort-group">
                     <span>Sắp xếp:</span>
-                    <Select
-                      // onChange={onSorting}
-                      defaultValue="name"
-                    >
-                      <Select.Option value="name">Tên đề tài</Select.Option>
-                      <Select.Option value="createDate">Ngày tạo</Select.Option>
+                    <Select onChange={onSorting} defaultValue="START_DATE">
+                      {/* <Select.Option value="name" >Tên đề tài</Select.Option> */}
+                      <Select.Option value="START_DATE">Ngày tạo</Select.Option>
                     </Select>
                     <div className="layout-style">
                       {loader}

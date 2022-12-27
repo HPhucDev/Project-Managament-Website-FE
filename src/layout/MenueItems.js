@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Menu } from "antd";
 import { NavLink, useRouteMatch } from "react-router-dom";
 import FeatherIcon from "feather-icons-react";
@@ -9,59 +9,60 @@ const { SubMenu } = Menu;
 
 const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
   const { path } = useRouteMatch();
-
   const pathName = window.location.pathname;
+  const [menuSelected, setMenuSelected] = useState([pathName]);
 
-  const pathArray = pathName?.split(path);
-  const mainPath = pathArray[1];
-  const mainPathSplit = mainPath?.split("/");
-
-  const [openKeys, setOpenKeys] = React.useState(
-    !topMenu
-      ? [`${mainPathSplit?.length > 2 ? mainPathSplit[1] : "dashboard"}`]
-      : []
-  );
-
-  const onOpenChange = (keys) => {
-    setOpenKeys(
-      keys[keys?.length - 1] !== "recharts"
-        ? [keys?.length && keys[keys?.length - 1]]
-        : keys
-    );
-  };
-
-  const onClick = (item) => {
-    if (item?.keyPath?.length === 1) setOpenKeys([]);
-  };
-
+  useEffect(() => {
+    if (pathName.search("project") != -1) {
+      setMenuSelected([...menuSelected, "project"]);
+    } else {
+      if (pathName.search("student") != -1) {
+        setMenuSelected([...menuSelected, "student"]);
+      } else {
+        if (pathName.search("lecturer") != -1) {
+          setMenuSelected([...menuSelected, "lecturer"]);
+        } else {
+          if (pathName.search("help") != -1) {
+            setMenuSelected([...menuSelected, "help"]);
+          } else {
+            setMenuSelected([...menuSelected]);
+          }
+        }
+      }
+    }
+  }, []);
+  console.log(menuSelected);
   return (
     <Menu
-      onOpenChange={onOpenChange}
-      onClick={onClick}
+      // onOpenChange={onOpenChange}
+      // onClick={onClick}
       mode={!topMenu || window.innerWidth <= 991 ? "inline" : "horizontal"}
       theme={darkMode && "dark"}
       // // eslint-disable-next-line no-nested-ternary
-      defaultSelectedKeys={!topMenu ? ["home"] : []}
+      selectedKeys={menuSelected}
       // defaultOpenKeys={!topMenu ? [`${mainPathSplit?.length > 2 ? mainPathSplit[1] : 'dashboard'}`] : []}
       overflowedIndicator={<FeatherIcon icon="more-vertical" />}
-      openKeys={openKeys}
+      // openKeys={openKeys}
     >
-      <Menu.Item key="addUser" icon={!topMenu && <FeatherIcon icon="home" />}>
+      <Menu.Item
+        key={`${myRouter.DashBoard}`}
+        icon={!topMenu && <FeatherIcon icon="home" />}
+      >
         <NavLink onClick={toggleCollapsed} to={`${myRouter.DashBoard}`}>
           Trang chủ
         </NavLink>
       </Menu.Item>
       <SubMenu
-        key="subject"
+        key={"project"}
         icon={!topMenu && <FeatherIcon icon="target" />}
         title="Đề tài"
       >
-        <Menu.Item key="subjectList" icon>
-          <NavLink onClick={toggleCollapsed} to={`${myRouter.Project}`}>
+        <Menu.Item key={`${myRouter.Project}/grid`} icon>
+          <NavLink onClick={toggleCollapsed} to={`${myRouter.Project}/grid`}>
             Danh sách đề tài
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="mySubject">
+        <Menu.Item key={`${myRouter.Project}/detail/1`}>
           <NavLink
             onClick={toggleCollapsed}
             to={`${myRouter.Project}/detail/1`}
@@ -72,16 +73,16 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
       </SubMenu>
 
       <SubMenu
-        key="teacher"
+        key={"lecturer"}
         icon={!topMenu && <FeatherIcon icon="users" />}
         title="Giảng viên"
       >
-        <Menu.Item key="teachers">
+        <Menu.Item key={`${myRouter.Lecturer}`}>
           <NavLink onClick={toggleCollapsed} to={`${myRouter.Lecturer}`}>
             Danh sách giảng viên
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="teacherGroup">
+        <Menu.Item key={`${myRouter.Lecturer_Group}`}>
           <NavLink onClick={toggleCollapsed} to={`${myRouter.Lecturer_Group}`}>
             Hội đồng phản biện
           </NavLink>
@@ -89,18 +90,18 @@ const MenuItems = ({ darkMode, toggleCollapsed, topMenu }) => {
       </SubMenu>
 
       <SubMenu
-        key="student"
+        key={"student"}
         icon={!topMenu && <FeatherIcon icon="users" />}
         title="Sinh viên"
       >
-        <Menu.Item key="students">
+        <Menu.Item key={`${myRouter.Student}`}>
           <NavLink onClick={toggleCollapsed} to={`${myRouter.Student}`}>
             Danh sách sinh viên
           </NavLink>
         </Menu.Item>
       </SubMenu>
       <Menu.Item
-        key="help"
+        key={`help`}
         icon={!topMenu && <FeatherIcon icon="help-circle" />}
       >
         <NavLink onClick={toggleCollapsed} to={`${myRouter.Help}`}>
