@@ -26,6 +26,7 @@ const Project = ({ match }) => {
     (state) => state.criteriaSearchStore.projectCriteria
   );
   const projects = useSelector((state) => state.projectStore.projects);
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     loadData();
   }, [listProjectCriteria]);
@@ -72,7 +73,12 @@ const Project = ({ match }) => {
           title="Danh sách đề tài"
           subTitle={<>{projects?.totalElements} đề tài</>}
           buttons={[
-            <Button key="1" type="primary" size="default">
+            <Button
+              key="1"
+              type="primary"
+              size="default"
+              onClick={() => setShowModal(true)}
+            >
               <FeatherIcon icon="plus" size={16} /> Thêm đề tài
             </Button>,
           ]}
@@ -224,7 +230,10 @@ const Project = ({ match }) => {
             </div>
           </Col>
         </Row>
-        {/* <CreateProject onCancel={onCancel} visible={visible} /> */}
+        <CreateProject
+          onCancel={() => setShowModal(false)}
+          visible={showModal}
+        />
       </Main>
     </>
   );

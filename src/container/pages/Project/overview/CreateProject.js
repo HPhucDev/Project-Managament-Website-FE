@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Select, Col, Row, DatePicker } from "antd";
+import { Form, Input, Select, Col, Row, DatePicker, InputNumber } from "antd";
 import propTypes from "prop-types";
 import { Button } from "../../../../components/buttons/buttons";
 import { Modal } from "../../../../components/modals/antd-modals";
@@ -38,21 +38,6 @@ const CreateProject = ({ visible, onCancel }) => {
     onCancel();
   };
 
-  const options = [
-    {
-      label: "Privet",
-      value: "privet",
-    },
-    {
-      label: "Team",
-      value: "team",
-    },
-    {
-      label: "Public",
-      value: "public",
-    },
-  ];
-
   return (
     <Modal
       type={state.modalType}
@@ -79,23 +64,41 @@ const CreateProject = ({ visible, onCancel }) => {
       <div className="project-modal">
         <BasicFormWrapper>
           <Form form={form} name="createProject" onFinish={handleOk}>
-            <Form.Item name="project" label="">
+            <Form.Item name="project">
+              <label>Tên đề tài</label>
               <Input placeholder="Tên đề tài" />
             </Form.Item>
-
             <Form.Item name="description" label="">
+              <label>Thông tin đề tài</label>
               <Input.TextArea rows={4} placeholder="Thông tin đề tài" />
             </Form.Item>
-            <Col md={12}>
-              <Form.Item name="start" label="Ngày bắt đầu">
-                <DatePicker placeholder="mm/dd/yyyy" format={dateFormat} />
+            <Col md={11}>
+              <Form.Item name="description" label="">
+                <label>Số lượng thành viên</label>
+                <InputNumber
+                  min={1}
+                  max={10}
+                  defaultValue={3}
+                  rows={1}
+                  placeholder="Số lượng thành viên"
+                />
               </Form.Item>
             </Col>
-            <Col md={12}>
-              <Form.Item name="end" label="Ngày kết thúc">
-                <DatePicker placeholder="mm/dd/yyyy" format={dateFormat} />
-              </Form.Item>
-            </Col>
+            <Row md={12}>
+              <Col md={12}>
+                <Form.Item name="start" label="">
+                  <label>Ngày bắt đầu</label>
+                  <DatePicker placeholder="mm/dd/yyyy" format={dateFormat} />
+                </Form.Item>
+              </Col>
+
+              <Col md={12}>
+                <Form.Item name="start" label="">
+                  <label>Ngày kết thúc</label>
+                  <DatePicker placeholder="mm/dd/yyyy" format={dateFormat} />
+                </Form.Item>
+              </Col>
+            </Row>
           </Form>
         </BasicFormWrapper>
       </div>
