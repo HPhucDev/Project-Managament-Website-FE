@@ -193,7 +193,10 @@ const Project = ({ match }) => {
                     patterns
                   /> */}
                 </div>
-                <div className="project-sort-group">
+                <div
+                  className="project-sort-group"
+                  style={{ marginTop: "10px" }}
+                >
                   <div className="sort-group">
                     <span>Sắp xếp:</span>
                     <Select onChange={onSorting} defaultValue="START_DATE">
